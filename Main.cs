@@ -124,7 +124,7 @@ namespace TestMod
             MelonLogger.Log("-> Patch -> LoadingBackground");
             GameObject.Find("LoadingBackground_TealGradient_Music/SkyCube_Baked").gameObject.SetActive(false);
             GameObject.Find("LoadingBackground_TealGradient_Music/_FX_ParticleBubbles/FX_snow").GetComponent<ParticleSystem>().startColor = Color.red;
-            GameObject.Find("LoadingBackground_TealGradient_Music/_FX_ParticleBubbles/FX_snow").GetComponent<ParticleSystem>().startSpeed = 2;
+            GameObject.Find("LoadingBackground_TealGradient_Music/_FX_ParticleBubbles/FX_snow").GetComponent<ParticleSystem>().startSpeed = 3;
             #endregion
             #region LoadingScreen
             MelonLogger.Log("-> Patch -> LoadingPopup");
