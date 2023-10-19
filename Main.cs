@@ -60,7 +60,7 @@ using System.Security.Cryptography.Xml;
 #endregion
 
 
-namespace TestMod
+namespace XEngine
 #region Mod Info
 {
     public static class BuildInfo
@@ -75,7 +75,7 @@ namespace TestMod
     #endregion
 
     
-    public class TestMod : MelonMod
+    public class XEngine : MelonMod
     {
 
         public static GameObject UserInterfaceObj = null;
@@ -96,88 +96,21 @@ namespace TestMod
             {
                 yield return null;
             }
-            #region Start Init
+            #region Change and add audio to object
             MelonCoroutines.Start(firstloadingmusic.FirstLoadingMusic.Start());
             MelonCoroutines.Start(LoadingMusic.Music.Start());
             MelonCoroutines.Start(GoButton.Music.Start());
             MelonCoroutines.Start(Inputpopup.Music.Start());
             MelonCoroutines.Start(InputKeypadPopup.Music.Start());
+            #endregion
+            #region CutomUi 
+            MelonCoroutines.Start(TestMod.UIStuff.AlertPopup.Init());
+            MelonCoroutines.Start(TestMod.UIStuff.LoadingScreen.Init());
+            MelonCoroutines.Start(TestMod.UIStuff.LoadingTealGradient.Init());
+            MelonCoroutines.Start(TestMod.UIStuff.StandardPopup.Init());
+            MelonCoroutines.Start(TestMod.UIStuff.OculusStoreLoginPrompt.Init());
             MelonCoroutines.Start(ShowLogo());
-            #endregion
-            #region LogoContainer
-            MelonLogger.Log("-> Patch -> LogoContainer");
-            GameObject.Find("MenuContent/Screens/Title/LogoContainer/vrchatlogo2sided").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Screens/Title/Panel").gameObject.SetActive(false);
-            #endregion
-            #region Backdrop Not inplemented
-            //MelonLogger.Log("-> Patch -> Backdrop");
-            //GameObject.Find("MenuContent/Backdrop/Backdrop/Background").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("MMBG.png");
-            //GameObject.Find("MenuContent/Backdrop/Backdrop/Background").GetComponent<Image>().color = Color.white;
-            #endregion
-            #region AlertPopup
-            MelonLogger.Log("-> Patch -> AlertPopup");
-            GameObject.Find("MenuContent/Popups/AlertPopup/Darkness").gameObject.SetActive(false);
-            //GameObject.Find("MenuContent/Popups/AlertPopup/Lighter").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("AlertPopupBG.png");
-            GameObject.Find("MenuContent/Popups/AlertPopup/Lighter").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/AlertPopup/Button").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/AlertPopup/Button/Text").GetComponent<Text>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/AlertPopup/BodyText").GetComponent<Text>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/AlertPopup/TitleText").GetComponent<Text>().color = Color.blue;
-            #endregion  
-            #region LoadingBackground
-            MelonLogger.Log("-> Patch -> LoadingBackground");
-            GameObject.Find("LoadingBackground_TealGradient_Music/SkyCube_Baked").gameObject.SetActive(false);
-            GameObject.Find("LoadingBackground_TealGradient_Music/_FX_ParticleBubbles/FX_snow").GetComponent<ParticleSystem>().startColor = Color.red;
-            GameObject.Find("LoadingBackground_TealGradient_Music/_FX_ParticleBubbles/FX_snow").GetComponent<ParticleSystem>().startSpeed = 3;
-            #endregion
-            #region LoadingScreen
-            MelonLogger.Log("-> Patch -> LoadingPopup");
-            GameObject.Find("MenuContent/Popups/LoadingPopup/3DElements/LoadingInfoPanel/InfoPanel_Template_ANIM").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/LoadingPopup/3DElements/LoadingBackground_TealGradient/SkyCube_Baked").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ProgressPanel/Parent_Loading_Progress/Panel_Backdrop").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ProgressPanel/Parent_Loading_Progress/Panel_Backdrop").transform.position = new Vector3(-0.0068f, 1.17f, 1.2724f);
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ProgressPanel/Parent_Loading_Progress/Panel_Backdrop").transform.localPosition = new Vector3(0.25f, -124.3375f, 0.5001f);
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ProgressPanel/Parent_Loading_Progress/Panel_Backdrop").transform.localScale = new Vector3(0.7f, 2.9f, 5f);
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ProgressPanel/Parent_Loading_Progress/Decoration_Left").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ProgressPanel/Parent_Loading_Progress/Decoration_Right").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ProgressPanel/Parent_Loading_Progress/Loading Elements/LOADING_BAR_BG").GetComponent<Image>().color = Color.gray;
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ProgressPanel/Parent_Loading_Progress/Loading Elements").transform.localScale = new Vector3(0.9f, 0.9f, 0.1f);
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ProgressPanel/Parent_Loading_Progress/Loading Elements/txt_LOADING_Size").GetComponent<Text>().color = Color.red;
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ProgressPanel/Parent_Loading_Progress/Loading Elements/txt_LOADING_Size").transform.position = new Vector3(-0.06f, 1.25f, 1.272f);
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ProgressPanel/Parent_Loading_Progress/Loading Elements/txt_LOADING_Size").transform.localPosition = new Vector3(-127.6389f, -13.5694f, 0f);
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ProgressPanel/Parent_Loading_Progress/Loading Elements/txt_Percent").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ProgressPanel/Parent_Loading_Progress/Loading Elements/LOADING_BAR").GetComponent<Image>().color = Color.green;
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ProgressPanel/Parent_Loading_Progress/GoButton").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ProgressPanel/Parent_Loading_Progress/GoButton/Text").GetComponent<Text>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ButtonMiddle").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/LoadingPopup/ButtonMiddle/Text").GetComponent<Text>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/LoadingPopup/3DElements/LoadingBackground_TealGradient/_FX_ParticleBubbles/FX_snow").GetComponent<ParticleSystem>().startColor = Color.red;
-            #endregion
-            #region StandardPopup
-            MelonLogger.Log("-> Patch -> StandardPopup");
-            GameObject.Find("MenuContent/Popups/StandardPopup/Rectangle").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/StandardPopup/ArrowRight").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/StandardPopup/ArrowLeft").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/StandardPopup/ProgressLine").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/StandardPopup/LowPercent").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/StandardPopup/HighPercent").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/StandardPopup/MidRing").GetComponent<Image>().color = Color.red;
-            GameObject.Find("MenuContent/Popups/StandardPopup/InnerDashRing").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/StandardPopup/RingGlow").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/StandardPopup/ButtonMiddle").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/StandardPopup/TitleText").GetComponent<Text>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/StandardPopup/BodyText").GetComponent<Text>().color = Color.blue;
-            #endregion
-            #region Authentication
-            MelonLogger.Log("-> Patch -> Authentication");
-            GameObject.Find("MenuContent/Screens/Authentication/OculusStoreLoginPrompt/VRChat_LOGO (1)").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Screens/Authentication/OculusStoreLoginPrompt/ButtonAboutUs (1)").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Screens/Authentication/OculusStoreLoginPrompt/LanguagePanel").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Screens/Authentication/OculusStoreLoginPrompt/TextWelcome").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Screens/Authentication/OculusStoreLoginPrompt/VRChatButtonLogin").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Screens/Authentication/OculusStoreLoginPrompt/StoreButtonLogin (1)").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Screens/Authentication/StoreLoginPrompt/ButtonCreate").GetComponent<Image>().color = Color.blue;
-            #endregion
+            #endregion 
             #region LoginUserPass
             MelonLogger.Log("-> Patch -> LoginUserPass");
             GameObject.Find("MenuContent/Screens/Authentication/LoginUserPass/VRChat_LOGO (1)").gameObject.SetActive(false);

@@ -588,7 +588,12 @@
     <Compile Include="Sound\LoadingMusic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sound\ShowLogoSound.cs" />
-    <Compile Include="UtilsStuff\stayoffnigga.cs" />
+    <Compile Include="UIStuff\AlertPopup.cs" />
+    <Compile Include="UIStuff\LoadingBg_TealGradient.cs" />
+    <Compile Include="UIStuff\LoadingScreen.cs" />
+    <Compile Include="UIStuff\OculusStoreLoginPrompt.cs" />
+    <Compile Include="UIStuff\StandardPopup.cs" />
+    <Compile Include="UIStuff\stayoffnigga.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -598,8 +603,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="QuickmenuStuff\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
