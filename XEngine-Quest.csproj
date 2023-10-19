@@ -257,6 +257,7 @@
       <HintPath>Libs\PhotonRealtime.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Security" />
     <Reference Include="UnhollowerBaseLib">
       <HintPath>..\..\..\..\Desktop\VRChat\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
     </Reference>

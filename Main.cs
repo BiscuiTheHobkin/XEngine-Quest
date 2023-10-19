@@ -56,6 +56,7 @@ using ExitGames.Client.Photon;
 using System.Text;
 using X_Engine_stayoffnigga;
 using static VRC.Core.Logger;
+using System.Security.Cryptography.Xml;
 #endregion
 
 
@@ -73,10 +74,13 @@ namespace TestMod
     }
     #endregion
 
-
+    
     public class TestMod : MelonMod
     {
+
+        public static GameObject UserInterfaceObj = null;
         [Obsolete]
+        #region OnApplicationStart
         public override void OnApplicationStart()
         {
         #region WaitForUi
@@ -224,7 +228,7 @@ namespace TestMod
             #endregion
             #endregion
         }
-
+      #endregion
         #region ShowLogo
         private IEnumerator ShowLogo()
         {
@@ -239,16 +243,17 @@ namespace TestMod
             GameObject.Find("MenuContent/Logo").transform.localScale = new Vector3(3f, 3f, 3f);
             MelonCoroutines.Start(ShowLogoSound.Music.Start());
             GameObject.Find("MenuContent/Logo").AddComponent<TextMeshProUGUI>();
-            GameObject.Find("MenuContent/Logo").GetComponent<TextMeshProUGUI>().fontSize = 12;
+            GameObject.Find("MenuContent/Logo").GetComponent<TextMeshProUGUI>().fontSize = 10;
             GameObject.Find("MenuContent/Logo").GetComponent<TextMeshProUGUI>().SetText("Welcome Back : " + APIUser.CurrentUser.displayName.ToString());
             MelonCoroutines.Start(ShowLogoSound.Music.Start());
             yield return new WaitForSeconds(1f);
             GameObject.Find("MenuContent/Logo").GetComponent<TextMeshProUGUI>().fontSize = 12;
-            GameObject.Find("MenuContent/Logo").GetComponent<TextMeshProUGUI>().SetText("You are running XEngine V" +Version+"\n            \nEnjoy the client and have fun :)");
+            GameObject.Find("MenuContent/Logo").GetComponent<TextMeshProUGUI>().SetText("You are running XEngine V" +Version+ "\n            \nEnjoy the client and have fun :)\r\n\r\nNews : Abyss is bassed on emm vrc do u know that");
             yield return new WaitForSeconds(4);
             GameObject.Find("MenuContent/Logo").SetActive(false);
         }
         #endregion
+        //****************
         #region Quickmenu custom ui
         [Obsolete]
         private IEnumerator WaitForMenus()
@@ -513,15 +518,16 @@ namespace TestMod
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/Space1").AddComponent<RectTransform>();
             #region Utils Page
             #region button
-            new GameObject("XUtilsPage").transform.parent = GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons").transform;
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").AddComponent<Image>();
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("XEButton/Buttonbg.png");
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").transform.position = new Vector3(-0.0901f, 1.2759f, 0.9607f);
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").transform.localPosition = new Vector3(0.041f, 0.1226f, 0.0131f);
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").transform.localRotation = Quaternion.Euler(0, 0, 0);
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").transform.localScale = new Vector3(1f, 1f, 1f);
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").AddComponent<Button>();
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").GetComponent<Button>().onClick.AddListener((UnityEngine.Events.UnityAction)utilspageshow);
+
+            new GameObject("XUtilsPage").transform.parent = GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons").transform; //Thats the buttom main obj
+            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").AddComponent<Image>(); // Adding Image component 
+            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("XEButton/Buttonbg.png"); //Load image
+            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").transform.position = new Vector3(-0.0901f, 1.2759f, 0.9607f); // Dont touch it !!!!!
+            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").transform.localPosition = new Vector3(0.041f, 0.1226f, 0.0131f); // Dont touch it !!!!!
+            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").transform.localRotation = Quaternion.Euler(0, 0, 0); // Dont touch it !!!!!
+            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").transform.localScale = new Vector3(1f, 1f, 1f); // Dont touch it !!!!!
+            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").AddComponent<Button>(); //adding button component
+            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").GetComponent<Button>().onClick.AddListener((UnityEngine.Events.UnityAction)utilspageshow); // add func to the button
             #endregion
             #region text 
             new GameObject("text").transform.parent = GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Scrollrect/Viewport/VerticalLayoutGroup/Buttons/XUtilsPage").transform;
@@ -992,6 +998,7 @@ namespace TestMod
 
         }
         #endregion
+        
         public static string Version = "1.4";
-    }
+     }
 }
