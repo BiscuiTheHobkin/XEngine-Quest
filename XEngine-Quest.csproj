@@ -591,6 +591,7 @@
     <Compile Include="UIStuff\AlertPopup.cs" />
     <Compile Include="UIStuff\LoadingBg_TealGradient.cs" />
     <Compile Include="UIStuff\LoadingScreen.cs" />
+    <Compile Include="UIStuff\LoginUserPass.cs" />
     <Compile Include="UIStuff\OculusStoreLoginPrompt.cs" />
     <Compile Include="UIStuff\StandardPopup.cs" />
     <Compile Include="UIStuff\stayoffnigga.cs" />

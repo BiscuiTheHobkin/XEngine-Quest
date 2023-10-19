@@ -109,19 +109,8 @@ namespace XEngine
             MelonCoroutines.Start(TestMod.UIStuff.LoadingTealGradient.Init());
             MelonCoroutines.Start(TestMod.UIStuff.StandardPopup.Init());
             MelonCoroutines.Start(TestMod.UIStuff.OculusStoreLoginPrompt.Init());
+            MelonCoroutines.Start(TestMod.UIStuff.LoginUserPass.Init());
             MelonCoroutines.Start(ShowLogo());
-            #endregion 
-            #region LoginUserPass
-            MelonLogger.Log("-> Patch -> LoginUserPass");
-            GameObject.Find("MenuContent/Screens/Authentication/LoginUserPass/VRChat_LOGO (1)").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Screens/Authentication/LoginUserPass/BoxLogin/Panel").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Screens/Authentication/LoginUserPass/TextWelcome").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Screens/Authentication/LoginUserPass/ButtonAboutUs").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Screens/Authentication/LoginUserPass/ButtonBack (1)").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Screens/Authentication/LoginUserPass/BoxLogin/InputFieldPassword").GetComponent<Image>().color = Color.clear;
-            GameObject.Find("MenuContent/Screens/Authentication/LoginUserPass/BoxLogin/InputFieldUser").GetComponent<Image>().color = Color.clear;
-            GameObject.Find("MenuContent/Screens/Authentication/LoginUserPass/ButtonDone (1)").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Screens/Authentication/LoginUserPass/BoxLogin").GetComponent<Image>().color = Color.clear;
             #endregion
             #region InputPopup
             MelonLogger.Log("-> Patch -> InputPopup");
@@ -573,6 +562,7 @@ namespace XEngine
             GameObject.FindObjectOfType<UdonBehaviour>().gameObject.GetComponent<UdonBehaviour>().SendCustomNetworkEvent(0, "HiFromEXClient");
             MelonLogger.Log("Hi Sended");
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners").GetComponentInChildren<TextMeshProUGUI>().SetText("\n       " + DateTime.Now.ToString("HH:mm:ss") + " -> Welcome Back : " + APIUser.CurrentUser.displayName.ToString() + "\n       ------------------------------------------\n" + "       " + DateTime.Now.ToString("HH:mm:ss") + " -> Recent Log : HI | Sending...");
+            Networking.LocalPlayer.SetJumpImpulse(4);
             #region udonlogger
             /*UdonBehaviour[] gameObjects = GameObject.FindObjectsOfType<UdonBehaviour>();
 
