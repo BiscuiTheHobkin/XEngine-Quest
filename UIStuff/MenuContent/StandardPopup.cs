@@ -14,7 +14,7 @@ namespace TestMod.UIStuff
     {
         public static IEnumerator Init()
         {
-            MelonLogger.Log("-> Patch -> StandardPopup");
+            MelonLogger.Msg("-> Patch -> StandardPopup");
             GameObject.Find("MenuContent/Popups/StandardPopup/Rectangle").gameObject.SetActive(false);
             GameObject.Find("MenuContent/Popups/StandardPopup/ArrowRight").gameObject.SetActive(false);
             GameObject.Find("MenuContent/Popups/StandardPopup/ArrowLeft").gameObject.SetActive(false);

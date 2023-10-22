@@ -13,7 +13,7 @@ namespace TestMod.UIStuff
     {
         public static IEnumerator Init()
         {
-            MelonLogger.Log("-> Patch -> LoadingBackground");
+            MelonLogger.Msg("-> Patch -> LoadingBackground");
             GameObject.Find("LoadingBackground_TealGradient_Music/SkyCube_Baked").gameObject.SetActive(false);
             GameObject.Find("LoadingBackground_TealGradient_Music/_FX_ParticleBubbles/FX_snow").GetComponent<ParticleSystem>().startColor = Color.red;
             GameObject.Find("LoadingBackground_TealGradient_Music/_FX_ParticleBubbles/FX_snow").GetComponent<ParticleSystem>().startSpeed = 3;

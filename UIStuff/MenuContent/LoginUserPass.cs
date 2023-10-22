@@ -14,7 +14,7 @@ namespace TestMod.UIStuff
     {
         public static IEnumerator Init()
         {
-            MelonLogger.Log("-> Patch -> LoginUserPass");
+            MelonLogger.Msg("-> Patch -> LoginUserPass");
             GameObject.Find("MenuContent/Screens/Authentication/LoginUserPass/VRChat_LOGO (1)").gameObject.SetActive(false);
             GameObject.Find("MenuContent/Screens/Authentication/LoginUserPass/BoxLogin/Panel").gameObject.SetActive(false);
             GameObject.Find("MenuContent/Screens/Authentication/LoginUserPass/TextWelcome").gameObject.SetActive(false);

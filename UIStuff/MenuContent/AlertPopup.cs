@@ -14,7 +14,7 @@ namespace TestMod.UIStuff
     {
         public static IEnumerator Init()
         {
-            MelonLogger.Log("-> Patch -> AlertPopup");
+            MelonLogger.Msg("-> Patch -> AlertPopup");
             GameObject.Find("MenuContent/Popups/AlertPopup/Darkness").gameObject.SetActive(false);
             //GameObject.Find("MenuContent/Popups/AlertPopup/Lighter").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("AlertPopupBG.png");
             GameObject.Find("MenuContent/Popups/AlertPopup/Lighter").GetComponent<Image>().color = Color.blue;

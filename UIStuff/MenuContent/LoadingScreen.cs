@@ -14,7 +14,7 @@ namespace TestMod.UIStuff
     {
         public static IEnumerator Init()
         {
-            MelonLogger.Log("-> Patch -> LoadingPopup");
+            MelonLogger.Msg("-> Patch -> LoadingPopup");
             GameObject.Find("MenuContent/Popups/LoadingPopup/3DElements/LoadingInfoPanel/InfoPanel_Template_ANIM").gameObject.SetActive(false);
             GameObject.Find("MenuContent/Popups/LoadingPopup/3DElements/LoadingBackground_TealGradient/SkyCube_Baked").gameObject.SetActive(false);
             GameObject.Find("MenuContent/Popups/LoadingPopup/ProgressPanel/Parent_Loading_Progress/Panel_Backdrop").GetComponent<Image>().color = Color.blue;

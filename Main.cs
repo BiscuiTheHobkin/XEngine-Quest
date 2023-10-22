@@ -54,7 +54,7 @@ using VRC.SDK3.Image;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
 using System.Text;
-using X_Engine_stayoffnigga;
+//using X_Engine_stayoffnigga;
 using static VRC.Core.Logger;
 using System.Security.Cryptography.Xml;
 #endregion
@@ -85,10 +85,10 @@ namespace XEngine
         {
         #region WaitForUi
             MelonCoroutines.Start(WaitForUi());
-            MelonLogger.Log("Waiting For UI...");
+            MelonLogger.Msg("Waiting For UI...");
             MelonCoroutines.Start(WaitForMenus());
-            MelonLogger.Log("Waiting for Qm/Mm Menus...");
-            ClassInjector.RegisterTypeInIl2Cpp<stayoffnigga>();
+            MelonLogger.Msg("Waiting for Qm/Mm menus...");
+            //ClassInjector.RegisterTypeInIl2Cpp<stayoffnigga>();
         }
         private IEnumerator WaitForUi()
         {
@@ -110,71 +110,15 @@ namespace XEngine
             MelonCoroutines.Start(TestMod.UIStuff.StandardPopup.Init());
             MelonCoroutines.Start(TestMod.UIStuff.OculusStoreLoginPrompt.Init());
             MelonCoroutines.Start(TestMod.UIStuff.LoginUserPass.Init());
-            MelonCoroutines.Start(ShowLogo());
-            #endregion
-            #region InputPopup
-            MelonLogger.Log("-> Patch -> InputPopup");
-            GameObject.Find("MenuContent/Popups/InputPopup/Darkness").GetComponent<Image>().gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/InputPopup/Darkness").GetComponent<Image>().color = Color.white;
-            GameObject.Find("MenuContent/Popups/InputPopup/Rectangle").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/InputPopup/ButtonRight").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/InputPopup/ButtonRight/Text").GetComponent<Text>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/InputPopup/ButtonLeft").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/InputPopup/ButtonLeft/Text").GetComponent<Text>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/InputPopup/PasswordVisibilityToggle").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/InputPopup/InputField").GetComponent<Image>().color = Color.black;
-            GameObject.Find("MenuContent/Popups/InputPopup/TitleText").GetComponent<Text>().color = Color.red;
-            #endregion
-            #region InputKeypadPopup
-            MelonLogger.Log("-> Patch -> InputKeypadPopup");
-            GameObject.Find("MenuContent/Popups/InputKeypadPopup/Darkness").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/InputKeypadPopup/Rectangle").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/InputKeypadPopup/InputField").GetComponent<Image>().color = Color.red;
-            GameObject.Find("MenuContent/Popups/InputKeypadPopup/Rectangle/Panel").GetComponent<Image>().color = Color.black;
-            GameObject.Find("MenuContent/Popups/InputKeypadPopup/TitleText").GetComponent<Text>().color = Color.red;
-            GameObject.Find("MenuContent/Popups/InputKeypadPopup/ButtonLeft").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/InputKeypadPopup/ButtonLeft/Text").GetComponent<Text>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/InputKeypadPopup/ButtonRight").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/InputKeypadPopup/ButtonRight/Text").GetComponent<Text>().color = Color.blue;
-            #endregion
-            #region StandardPopupV2
-            MelonLogger.Log("-> Patch -> StandardPopupV2");
-            GameObject.Find("MenuContent/Popups/StandardPopupV2/Darkness").gameObject.SetActive(false);
-            GameObject.Find("MenuContent/Popups/StandardPopupV2/Popup/BorderImage").GetComponent<Image>().color = Color.black;
-            GameObject.Find("MenuContent/Popups/StandardPopupV2/Popup/Panel").GetComponent<Image>().color = Color.black;
-            GameObject.Find("MenuContent/Popups/StandardPopupV2/Popup/ExitButton").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/StandardPopupV2/Popup/Buttons/LeftButton").GetComponent<Image>().color = Color.blue;
-            GameObject.Find("MenuContent/Popups/StandardPopupV2/Popup/Buttons/RightButton").GetComponent<Image>().color = Color.blue;
-            MelonLogger.Log("-> Patch -> Done");
-            MelonLogger.Log("Waiting for quickmenu...");
+            MelonCoroutines.Start(TestMod.UIStuff.InputPopup.Init());
+            MelonCoroutines.Start(TestMod.UIStuff.InputKeypadPopup.Init());
+            MelonCoroutines.Start(TestMod.UIStuff.StandardPopupV2.Init());
+            MelonCoroutines.Start(TestMod.UIStuff.WelcomeScreenAfterLogin.Init());
             #endregion
             #endregion
-        }
-      #endregion
-        #region ShowLogo
-        private IEnumerator ShowLogo()
-        {
-            while (GameObject.Find("StandardPopup") == null)
-            {
-                yield return null;
-            }
-            yield return new WaitForSeconds(2);
-            new GameObject("Logo").transform.parent = GameObject.Find("MenuContent").transform;
-            GameObject.Find("MenuContent/Logo").transform.position = new Vector3(-0.007f, 1.5623f, 0.78f);
-            GameObject.Find("MenuContent/Logo").transform.localPosition = new Vector3(0f, 0.0375f, 0f);
-            GameObject.Find("MenuContent/Logo").transform.localScale = new Vector3(3f, 3f, 3f);
-            MelonCoroutines.Start(ShowLogoSound.Music.Start());
-            GameObject.Find("MenuContent/Logo").AddComponent<TextMeshProUGUI>();
-            GameObject.Find("MenuContent/Logo").GetComponent<TextMeshProUGUI>().fontSize = 10;
-            GameObject.Find("MenuContent/Logo").GetComponent<TextMeshProUGUI>().SetText("Welcome Back : " + APIUser.CurrentUser.displayName.ToString());
-            MelonCoroutines.Start(ShowLogoSound.Music.Start());
-            yield return new WaitForSeconds(1f);
-            GameObject.Find("MenuContent/Logo").GetComponent<TextMeshProUGUI>().fontSize = 12;
-            GameObject.Find("MenuContent/Logo").GetComponent<TextMeshProUGUI>().SetText("You are running XEngine V" +Version+ "\n            \nEnjoy the client and have fun :)\r\n\r\nNews : Abyss is bassed on emm vrc do u know that");
-            yield return new WaitForSeconds(4);
-            GameObject.Find("MenuContent/Logo").SetActive(false);
         }
         #endregion
+
         //****************
         #region Quickmenu custom ui
         [Obsolete]
@@ -184,108 +128,16 @@ namespace XEngine
             {
                 yield return null;
             }
-            #region console shit
-            MelonLogger.Log(" ,--,     ,--,     ,---,.                                                       ");
-            MelonLogger.Log(" |'. \\   / .`|   ,'  .' |                         ,--,                          ");
-            MelonLogger.Log(" ; \\ `\\ /' / ; ,---.'   |      ,---,            ,--.'|         ,---,            ");
-            MelonLogger.Log(" `. \\  /  / .' |   |   .'  ,-+-. /  |  ,----._,.|  |,      ,-+-. /  |           ");
-            MelonLogger.Log("  \\  \\/  / ./  :   :  |-, ,--.'|'   | /   /  ' /`--'_     ,--.'|'   |   ,---.   ");
-            MelonLogger.Log("   \\  \\.'  /   :   |  ;/||   |  ,\"' ||   :     |,' ,'|   |   |  ,\"' |  /     \\  ");
-            MelonLogger.Log("    \\  ;  ;    |   :   .'|   | /  | ||   | .\\  .'  | |   |   | /  | | /    /  | ");
-            MelonLogger.Log("   / \\  \\  \\   |   |  |-,|   | |  | |.   ; ';  ||  | :   |   | |  | |.    ' / | ");
-            MelonLogger.Log("  ;  /\\  \\  \\  '   :  ;/||   | |  |/ '   .   . |'  : |__ |   | |  |/ '   ;   /| ");
-            MelonLogger.Log("./__;  \\  ;  \\ |   |    \\|   | |--'   `---`-'| ||  | '.'||   | |--'  '   |  / | ");
-            MelonLogger.Log("|   : / \\  \\  ;|   :   .'|   |/       .'__/\\_: |;  :    ;|   |/      |   :    | ");
-            MelonLogger.Log(";   |/   \\  ' ||   | ,'  '---'        |   :    :|  ,   / '---'        \\   \\  /  ");
-            MelonLogger.Log("`---'     `--` `----'                  \\   \\  /  ---`-'                `----'   ");
-            MelonLogger.Log("                                        `--`-'                                  ");
-            MelonLogger.Log("");
-            MelonLogger.Log("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
-            MelonLogger.Log("- - - Welcomme back : " + APIUser.CurrentUser.displayName.ToString() + " - - - -");
-            MelonLogger.Log("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
-            MelonLogger.Log("- - - Client Vesion : " + Version + " - - - -");
-            MelonLogger.Log("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
-            MelonLogger.Log("- - Credit : fueltoguy for loadingcustomaudio - voided_space for playerlist - - ");
-            MelonLogger.Log("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
-            #endregion
             #region qm init
             MelonCoroutines.Start(QmObjectenabler());
-            MelonLogger.Log("Menus found wait : 8s before patch...");
+            MelonLogger.Msg("Menus found wait : 8s before patch...");
             yield return new WaitForSeconds(8);
-            MelonLogger.Log("ClientVRUI -> Started");
-            MelonLogger.Log("ClientVRUI -> QM - Dashboard -> Init...");
-            #region QM - Dashboard
-            #region QM - Dashboard - VRC+_Banners
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners").gameObject.SetActive(true);
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners/SupportVRChat").gameObject.SetActive(false);
-            GameObject.DestroyImmediate(GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners/ThankYouMM"));
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners").AddComponent<TextMeshProUGUI>();
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners").GetComponentInChildren<TextMeshProUGUI>().SetText("\n       " +DateTime.Now.ToString("HH:mm:ss")+ " -> Welcome Back : " + APIUser.CurrentUser.displayName.ToString()+"\n       ------------------------------------------\n"+"       "+DateTime.Now.ToString("HH:mm:ss")+" -> Recent Log : Have Fun using XEngine <3");
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners").GetComponentInChildren<TextMeshProUGUI>().fontSize = 28;
-            GameObject.DestroyImmediate(GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Carousel_Banners"));
-            #endregion
-            #region QM - Dashboard - text 
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/Header_H1/HeaderBackground").gameObject.SetActive(false);
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/Header_H1/LeftItemContainer/Text_Title").GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/Header_H1/LeftItemContainer/Text_Title").GetComponentInChildren<TextMeshProUGUI>().SetText("XEngine");
-            #endregion
-            #region QM - Dashboard - QuickLink
-            #region Button_Worlds
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickLinks/Button_Worlds/Icon").GetComponent<Image>().color = Color.red;
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickLinks/Button_Worlds/Background").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("QM/QMButtonBG.png");
-            #endregion
-            #region Button_Avatars
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickLinks/Button_Avatars/Icon").GetComponent<Image>().color = Color.red;
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickLinks/Button_Avatars/Background").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("QM/QMButtonBG.png");
-            #endregion
-            #region Button_Social
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickLinks/Button_Social/Icon").GetComponent<Image>().color = Color.red;
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickLinks/Button_Social/Background").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("QM/QMButtonBG.png");
-            #endregion
-            #region Button_ViewGroups
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickLinks/Button_ViewGroups/Icon").GetComponent<Image>().color = Color.red;
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickLinks/Button_ViewGroups/Background").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("QM/QMButtonBG.png");
-            #endregion
-            #endregion
-            #region QM - Dashboard - QuickActions
-            #region Button_GoHome
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions/Button_GoHome/Icon").GetComponent<Image>().color = Color.red;
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions/Button_GoHome/Background").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("QM/QMButtonBG.png");
-            #endregion
-            #region Button_Respawn
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions/Button_Respawn/Icon").GetComponent<Image>().color= Color.red;
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions/Button_Respawn/Background").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("QM/QMButtonBG.png");
-            #endregion
-            #region Button_SitStand
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions/SitStandCalibrateButton/Button_SitStand/Icon_Off").GetComponent<Image>().color= Color.red;
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions/SitStandCalibrateButton/Button_SitStand/Icon_On").GetComponent<Image>().color= Color.red;
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions/SitStandCalibrateButton/Button_SitStand/Background").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("QM/QMButtonBG.png");
-            #endregion
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions/Button_Safety/Background").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("QM/QMButtonBG.png");
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions/Button_SelectUser/Background").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("QM/QMButtonBG.png");
-            #endregion
-            #endregion
-            #region QM - Panel_QM_Widget
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Panel_QM_Widget/DebugInfoPanel/Panel/Background").transform.position = new Vector3(0f, 1.702f, 0.85f);
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Panel_QM_Widget/DebugInfoPanel/Panel/Background").transform.localPosition = new Vector3(512f, 0.1f, 0f);
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Panel_QM_Widget/DebugInfoPanel/Panel/Background").transform.localScale = new Vector3(2.5f, 2f, 1f);
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Panel_QM_Widget/Notifications").transform.position = new Vector3(12.7751f, 5.1782f, 3.3158f);
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Panel_QM_Widget/Notifications").transform.localPosition = new Vector3(0.032f, -305.8109f, -75.5849f);
-            #region Clock 
-            new GameObject("Clock").transform.parent = GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Panel_QM_Widget/DebugInfoPanel/Panel").transform;
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Panel_QM_Widget/DebugInfoPanel/Panel/Clock").transform.position = new Vector3(-0.073f, 0.586f, 0.3158f);
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Panel_QM_Widget/DebugInfoPanel/Panel/Clock").transform.localPosition = new Vector3(52.7304f, 56.5444f, 29.412f);
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Panel_QM_Widget/DebugInfoPanel/Panel/Clock").transform.localScale = new Vector3(1f, 1f, 1f);
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Panel_QM_Widget/DebugInfoPanel/Panel/Clock").transform.localRotation = Quaternion.Euler(0, 0, 0);
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Panel_QM_Widget/DebugInfoPanel/Panel/Clock").AddComponent<TextMeshProUGUI>();
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Panel_QM_Widget/DebugInfoPanel/Panel/Clock").GetComponent<TextMeshProUGUI>().SetText("       " + DateTime.Now.ToString("HH:mm"));
-            #endregion
-            MelonCoroutines.Start(Qmnotification.Music.Start());
-            #endregion
-            #region QM - Wing_Left
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Wing_Left/Container/InnerContainer/Background").GetComponent<Image>().color = Color.white;
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Wing_Left/Container/InnerContainer/Background").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("QM/QMWingL_BG.png");
-            #endregion
+            MelonLogger.Msg("ClientVRUI -> Started");
+            MelonLogger.Msg("ClientVRUI -> QM -> Init...");
+            MelonCoroutines.Start(QuickMenus.Page.QMDash.Start());
+            MelonCoroutines.Start(QuickMenus.PanelWidget.Adjust_and_adding_clock.Start());
+            MelonCoroutines.Start(QuickMenus.QMWings.QMWingsL.Start());
+
             #region QM - Wing_Right
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Wing_Right/Container/InnerContainer/Background").GetComponent<Image>().color = Color.white;
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Wing_Right/Container/InnerContainer/Background").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("QM/QMWingR_BG.png");
@@ -301,7 +153,7 @@ namespace XEngine
             #region QM - Tooltip
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/ToolTipPanel/Panel/Vertical Layout/Text_H3").GetComponentInChildren<TextMeshProUGUI>().color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
             #endregion
-            MelonLogger.Log("ClientVRUI -> QM - Dashboard -> Pass");
+            MelonLogger.Msg("ClientVRUI -> QM -> Pass");
             #region TextColorPatcher
             TextMeshProUGUI[] textComponents = GameObject.FindObjectsOfType<TextMeshProUGUI>();
 
@@ -383,6 +235,10 @@ namespace XEngine
 
         #endregion
         #endregion
+
+
+
+
         #region MMenus
         private IEnumerator MMMenus()
         {
@@ -391,7 +247,7 @@ namespace XEngine
                 yield return null;
             }
             #region MainMenu
-            MelonLogger.Log("ClientVRUI -> MainMenu -> Init...");
+            MelonLogger.Msg("ClientVRUI -> MainMenu -> Init...");
             #region MM Background
             GameObject.Find("Canvas_MainMenu(Clone)/Container/MMParent/BackgroundLayer01").GetComponent<Image>().color = Color.white;
             GameObject.Find("Canvas_MainMenu(Clone)/Container/MMParent/BackgroundLayer01").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("MM/MMBG.png");
@@ -407,7 +263,7 @@ namespace XEngine
             #region Tooltip text
             GameObject.Find("Canvas_MainMenu(Clone)/Container/ToolTipPanel/Panel/Vertical Layout/Text_MM_H2").GetComponent<TextMeshProUGUI>().color = Color.red;
             #endregion
-            MelonLogger.Log("ClientVRUI -> MainMenu -> Pass");
+            MelonLogger.Msg("ClientVRUI -> MainMenu -> Pass");
             #endregion
 
         }
@@ -420,7 +276,7 @@ namespace XEngine
                 yield return null;
             }
             #region RemoveOreginalButton
-            MelonLogger.Log("ClientVRUI -> Building XEngineMenu...");
+            MelonLogger.Msg("ClientVRUI -> Building XEngineMenu...");
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Page_Buttons_QM/HorizontalLayoutGroup/Page_DevTools").gameObject.SetActive(true);
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Header_DevTools/LeftItemContainer/Text_Title").GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_DevTools/Header_DevTools/LeftItemContainer/Text_Title").GetComponentInChildren<TextMeshProUGUI>().SetText("XEClient : V" + Version);
@@ -560,7 +416,7 @@ namespace XEngine
         public void XSAHBUE() //Added
         {
             GameObject.FindObjectOfType<UdonBehaviour>().gameObject.GetComponent<UdonBehaviour>().SendCustomNetworkEvent(0, "HiFromEXClient");
-            MelonLogger.Log("Hi Sended");
+            MelonLogger.Msg("Hi Sended");
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners").GetComponentInChildren<TextMeshProUGUI>().SetText("\n       " + DateTime.Now.ToString("HH:mm:ss") + " -> Welcome Back : " + APIUser.CurrentUser.displayName.ToString() + "\n       ------------------------------------------\n" + "       " + DateTime.Now.ToString("HH:mm:ss") + " -> Recent Log : HI | Sending...");
             Networking.LocalPlayer.SetJumpImpulse(4);
             #region udonlogger
@@ -721,37 +577,37 @@ namespace XEngine
         public void XMStart() //added
         {
             GameObject.Find("Game Logic").GetComponent<UdonBehaviour>().SendCustomNetworkEvent(0, "SyncStartGame");
-            MelonLogger.Log("Trying to force start Match...");
+            MelonLogger.Msg("Trying to force start Match...");
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners").GetComponentInChildren<TextMeshProUGUI>().SetText("\n       " + DateTime.Now.ToString("HH:mm:ss") + " -> Welcome Back : " + APIUser.CurrentUser.displayName.ToString() + "\n       ------------------------------------------\n" + "       " + DateTime.Now.ToString("HH:mm:ss") + " -> Recent Log : Murder 4 | Trying to force start Match...");
         }
         public void XMKillAll() //added
         {
             GameObject.Find("Game Logic").GetComponent<UdonBehaviour>().SendCustomNetworkEvent(0, "KillLocalPlayer");
-            MelonLogger.Log("Killing All...");
+            MelonLogger.Msg("Killing All...");
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners").GetComponentInChildren<TextMeshProUGUI>().SetText("\n       " + DateTime.Now.ToString("HH:mm:ss") + " -> Welcome Back : " + APIUser.CurrentUser.displayName.ToString() + "\n       ------------------------------------------\n" + "       " + DateTime.Now.ToString("HH:mm:ss") + " -> Recent Log : Murder 4 | Killing All...");
         }
         public void XMShowAllRoles() //added
         {
             GameObject.Find("Game Logic").GetComponent<UdonBehaviour>().SendCustomNetworkEvent(0, "OnLocalPlayerAssignedRole");
-            MelonLogger.Log("Reshowing Everyones Roles...");
+            MelonLogger.Msg("Reshowing Everyones Roles...");
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners").GetComponentInChildren<TextMeshProUGUI>().SetText("\n       " + DateTime.Now.ToString("HH:mm:ss") + " -> Welcome Back : " + APIUser.CurrentUser.displayName.ToString() + "\n       ------------------------------------------\n" + "       " + DateTime.Now.ToString("HH:mm:ss") + " -> Recent Log : Murder 4 | Reshowing Everyones Roles...");
         }
         public void XMBlindAll() //added
         {
             GameObject.Find("Game Logic").GetComponent<UdonBehaviour>().SendCustomNetworkEvent(0, "OnLocalPlayerBlinded");
-            MelonLogger.Log("Blinding EveryBody...");
+            MelonLogger.Msg("Blinding EveryBody...");
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners").GetComponentInChildren<TextMeshProUGUI>().SetText("\n       " + DateTime.Now.ToString("HH:mm:ss") + " -> Welcome Back : " + APIUser.CurrentUser.displayName.ToString() + "\n       ------------------------------------------\n" + "       " + DateTime.Now.ToString("HH:mm:ss") + " -> Recent Log : Murder 4 | Blinding EveryBody...");
         }
         public void XMCamFlash() //added
         {
             GameObject.Find("Game Logic").GetComponent<UdonBehaviour>().SendCustomNetworkEvent(0, "OnLocalPlayerFlashbanged");
-            MelonLogger.Log("Flashsing Everyone...");
+            MelonLogger.Msg("Flashsing Everyone...");
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners").GetComponentInChildren<TextMeshProUGUI>().SetText("\n       " + DateTime.Now.ToString("HH:mm:ss") + " -> Welcome Back : " + APIUser.CurrentUser.displayName.ToString() + "\n       ------------------------------------------\n" + "       " + DateTime.Now.ToString("HH:mm:ss") + " -> Recent Log : Murder 4 | Flashsing Everyone...");
         }
         public void XMSNAKE() // added
         {
             GameObject.Find("Game Logic/Snakes/SnakeDispenser").GetComponent<UdonBehaviour>().SendCustomNetworkEvent(0, "DispenseSnake");
-            MelonLogger.Log("Releasing Snakes...");
+            MelonLogger.Msg("Releasing Snakes...");
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners").GetComponentInChildren<TextMeshProUGUI>().SetText("\n       " + DateTime.Now.ToString("HH:mm:ss") + " -> Welcome Back : " + APIUser.CurrentUser.displayName.ToString() + "\n       ------------------------------------------\n" + "       " + DateTime.Now.ToString("HH:mm:ss") + " -> Recent Log : Murder 4 | Releasing Snakes...");
         }
         public void XMHideButton() // added
@@ -804,10 +660,10 @@ namespace XEngine
                 yield return null;
             }
             #region MicColorAndCustomIcon
-            MelonLogger.Log("ClientVRUI -> Micolor -> Init...");
+            MelonLogger.Msg("ClientVRUI -> Micolor -> Init...");
             GameObject.Find("UnscaledUI/HudContent/HUD_UI 2(Clone)/VR Canvas/Container/Left/Icons/Mic/MicIcon").GetComponent<Image>().color = Color.red;
             GameObject.Find("UnscaledUI/HudContent/HUD_UI 2(Clone)/VR Canvas/Container/Left/Icons/Mic/MicIcon").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("MicIcon.png");
-            MelonLogger.Log("ClientVRUI -> Micolor -> Pass");
+            MelonLogger.Msg("ClientVRUI -> Micolor -> Pass");
             #endregion
         }
         #endregion
@@ -859,7 +715,7 @@ namespace XEngine
             {
                 yield return null;
             }
-            MelonLogger.Log("FrenchFurHubPatcher Init...");
+            MelonLogger.Msg("FrenchFurHubPatcher Init...");
             yield return new WaitForSeconds(8);
             GameObject.Find("Menu/Background").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("MM/MMBG.png");
             GameObject.Find("Menu/Container/Panels/Toggles/Buttons/ToggleChairs").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("QM/QMButtonBG.png");
@@ -922,6 +778,6 @@ namespace XEngine
         }
         #endregion
         
-        public static string Version = "1.4";
+        public static string Version = "1.5";
      }
 }

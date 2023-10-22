@@ -27,7 +27,7 @@ namespace firstloadingmusic
             musicObj.clip = clip;
             musicObj.volume = 100;
             musicObj.Play();
-            MelonLogger.Msg("-> Music -> FirstLoadingMusic Loaded");
+            //MelonLogger.Msg("-> Music -> FirstLoadingMusic Loaded");
             localfile = null;
             yield break;
         }
