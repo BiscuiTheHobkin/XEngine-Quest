@@ -1,7 +1,5 @@
 C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpdater\obj\Release\XEUpdater.csproj.AssemblyReference.cache
 C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpdater\obj\Release\XEUpdater.csproj.CoreCompileInputs.cache
-C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpdater\bin\Release\XEUpdater.dll
-C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpdater\bin\Release\XEUpdater.pdb
 C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpdater\bin\Release\Il2Cppmscorlib.dll
 C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpdater\bin\Release\Il2CppSystem.dll
 C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpdater\bin\Release\MelonLoader.dll
@@ -16,5 +14,7 @@ C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpda
 C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpdater\bin\Release\UnityEngine.SharedInternalsModule.dll
 C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpdater\bin\Release\Il2CppSystem.Core.dll
 C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpdater\obj\Release\XEUpdater.csproj.CopyComplete
-C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpdater\obj\Release\XEUpdater.dll
-C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpdater\obj\Release\XEUpdater.pdb
+C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpdater\bin\Release\Xloader.dll
+C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpdater\bin\Release\Xloader.pdb
+C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpdater\obj\Release\Xloader.dll
+C:\Users\Biscuit\Documents\Visual Studio 2022\XengineClient\XEngine-Quest\XEUpdater\obj\Release\Xloader.pdb

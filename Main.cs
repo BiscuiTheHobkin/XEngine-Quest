@@ -54,9 +54,9 @@ using VRC.SDK3.Image;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
 using System.Text;
-//using X_Engine_stayoffnigga;
 using static VRC.Core.Logger;
 using System.Security.Cryptography.Xml;
+using X_Engine_stayoffnigga;
 #endregion
 
 
@@ -88,7 +88,7 @@ namespace XEngine
             MelonLogger.Msg("Waiting For UI...");
             MelonCoroutines.Start(WaitForMenus());
             MelonLogger.Msg("Waiting for Qm/Mm menus...");
-            //ClassInjector.RegisterTypeInIl2Cpp<stayoffnigga>();
+            ClassInjector.RegisterTypeInIl2Cpp<stayoffnigga>();
         }
         private IEnumerator WaitForUi()
         {
@@ -104,16 +104,16 @@ namespace XEngine
             MelonCoroutines.Start(InputKeypadPopup.Music.Start());
             #endregion
             #region CutomUi 
-            MelonCoroutines.Start(TestMod.UIStuff.AlertPopup.Init());
-            MelonCoroutines.Start(TestMod.UIStuff.LoadingScreen.Init());
-            MelonCoroutines.Start(TestMod.UIStuff.LoadingTealGradient.Init());
-            MelonCoroutines.Start(TestMod.UIStuff.StandardPopup.Init());
-            MelonCoroutines.Start(TestMod.UIStuff.OculusStoreLoginPrompt.Init());
-            MelonCoroutines.Start(TestMod.UIStuff.LoginUserPass.Init());
-            MelonCoroutines.Start(TestMod.UIStuff.InputPopup.Init());
-            MelonCoroutines.Start(TestMod.UIStuff.InputKeypadPopup.Init());
-            MelonCoroutines.Start(TestMod.UIStuff.StandardPopupV2.Init());
-            MelonCoroutines.Start(TestMod.UIStuff.WelcomeScreenAfterLogin.Init());
+            MelonCoroutines.Start(UIStuff.AlertPopup.Init());
+            MelonCoroutines.Start(UIStuff.LoadingScreen.Init());
+            MelonCoroutines.Start(UIStuff.LoadingTealGradient.Init());
+            MelonCoroutines.Start(UIStuff.StandardPopup.Init());
+            MelonCoroutines.Start(UIStuff.OculusStoreLoginPrompt.Init());
+            MelonCoroutines.Start(UIStuff.LoginUserPass.Init());
+            MelonCoroutines.Start(UIStuff.InputPopup.Init());
+            MelonCoroutines.Start(UIStuff.InputKeypadPopup.Init());
+            MelonCoroutines.Start(UIStuff.StandardPopupV2.Init());
+            MelonCoroutines.Start(UIStuff.WelcomeScreenAfterLogin.Init());
             #endregion
             #endregion
         }
@@ -137,19 +137,10 @@ namespace XEngine
             MelonCoroutines.Start(QuickMenus.Page.QMDash.Start());
             MelonCoroutines.Start(QuickMenus.PanelWidget.Adjust_and_adding_clock.Start());
             MelonCoroutines.Start(QuickMenus.QMWings.QMWingsL.Start());
+            MelonCoroutines.Start(QuickMenus.QMWings.QMWingsR.Start());
+            MelonCoroutines.Start(QuickMenus.QMBG.Start());
+            MelonCoroutines.Start(QuickMenus.QMMiniBut.Start());
 
-            #region QM - Wing_Right
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Wing_Right/Container/InnerContainer/Background").GetComponent<Image>().color = Color.white;
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Wing_Right/Container/InnerContainer/Background").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("QM/QMWingR_BG.png");
-            #endregion
-            #region QM - BackGround
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/BackgroundLayer01").GetComponent<Image>().color = Color.white;
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/BackgroundLayer01").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("QM/QMBG.png");
-            #endregion
-            #region QM - mini button
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/MicButton").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("QM/QMButtonBG.png");
-            GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/Toggle_SafeMode").GetComponent<Image>().overrideSprite = XClientResources.Resources.LoadSprite("QM/QMButtonBG.png");
-            #endregion
             #region QM - Tooltip
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/ToolTipPanel/Panel/Vertical Layout/Text_H3").GetComponentInChildren<TextMeshProUGUI>().color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
             #endregion
@@ -235,10 +226,6 @@ namespace XEngine
 
         #endregion
         #endregion
-
-
-
-
         #region MMenus
         private IEnumerator MMMenus()
         {
@@ -418,7 +405,6 @@ namespace XEngine
             GameObject.FindObjectOfType<UdonBehaviour>().gameObject.GetComponent<UdonBehaviour>().SendCustomNetworkEvent(0, "HiFromEXClient");
             MelonLogger.Msg("Hi Sended");
             GameObject.Find("Canvas_QuickMenu(Clone)/CanvasGroup/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners").GetComponentInChildren<TextMeshProUGUI>().SetText("\n       " + DateTime.Now.ToString("HH:mm:ss") + " -> Welcome Back : " + APIUser.CurrentUser.displayName.ToString() + "\n       ------------------------------------------\n" + "       " + DateTime.Now.ToString("HH:mm:ss") + " -> Recent Log : HI | Sending...");
-            Networking.LocalPlayer.SetJumpImpulse(4);
             #region udonlogger
             /*UdonBehaviour[] gameObjects = GameObject.FindObjectsOfType<UdonBehaviour>();
 
@@ -674,8 +660,7 @@ namespace XEngine
             {
                 yield return null;
             }
-
-            yield return new WaitForSeconds(15);
+            yield return new WaitForSeconds(5);
             #region Nameplate/Contents/Main
             GameObject.Find("NameplateManager/NameplateContainer/PlayerNameplate/Canvas/NameplateGroup/Nameplate/Contents/Main/Background").GetComponent<MaskableGraphic>().color = new Color(0.3f, 0.0f, 0.0f, 1.0f);
             GameObject.Find("NameplateManager/NameplateContainer/PlayerNameplate/Canvas/NameplateGroup/Nameplate/Contents/Main/Glow").GetComponent<MaskableGraphic>().color = new Color(1f, 0.1400024f, 0.0f, 1.0f);

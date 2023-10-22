@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TestMod.UIStuff
+namespace UIStuff
 {
     internal class AlertPopup
     {

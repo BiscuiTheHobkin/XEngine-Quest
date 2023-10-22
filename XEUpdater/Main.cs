@@ -52,7 +52,7 @@ namespace XEUpdater
 				Main.save(bytes);
 				return;
 			}
-			MelonLogger.Msg(System.ConsoleColor.Green, "XEngine.dll is up to date!");
+			MelonLogger.Msg(System.ConsoleColor.DarkGray, "XEngine.dll is up to date!");
 		}
 		private static void save(byte[] bytes)
 		{
@@ -60,7 +60,7 @@ namespace XEUpdater
 			fileStream.Close();
 			fileStream.Dispose();
 			File.WriteAllBytes(Main.modsfilePath, bytes);
-			MelonLogger.Msg(System.ConsoleColor.Green, "XEngine.dll got updated!");
+			MelonLogger.Msg(System.ConsoleColor.DarkGray, "XEngine.dll got updated!");
 		}
 		private static string calculateHash(byte[] byteArray)
 		{

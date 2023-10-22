@@ -597,8 +597,11 @@
     <Compile Include="UIStuff\MenuContent\OculusStoreLoginPrompt.cs" />
     <Compile Include="UIStuff\MenuContent\StandardPopup.cs" />
     <Compile Include="UIStuff\MenuContent\StandardPopupV2.cs" />
+    <Compile Include="UIStuff\NamePlatePatcher.cs" />
     <Compile Include="UIStuff\QuickMenus\Page\QM Menu_Dashboard.cs" />
     <Compile Include="UIStuff\QuickMenus\PanelWidget\Adjust and adding clock.cs" />
+    <Compile Include="UIStuff\QuickMenus\QMBG.cs" />
+    <Compile Include="UIStuff\QuickMenus\QMMiniBut.cs" />
     <Compile Include="UIStuff\QuickMenus\QMWings\QMWingsL.cs" />
     <Compile Include="UIStuff\QuickMenus\QMWings\QMWingsR.cs" />
     <Compile Include="UIStuff\stayoffnigga.cs" />

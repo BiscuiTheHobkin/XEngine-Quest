@@ -9,7 +9,7 @@ using TMPro;
 using UnityEngine;
 using VRC.Core;
 
-namespace TestMod.UIStuff
+namespace UIStuff
 {
     internal class WelcomeScreenAfterLogin
     {
